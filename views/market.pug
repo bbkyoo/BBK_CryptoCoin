@@ -1,0 +1,65 @@
+doctype html
+html
+  head
+    meta(charset = 'utf-8')
+    script(src='/socket.io/socket.io.js')
+  body
+    h3 Comments
+    table
+      tr
+        th Name
+        th Price
+        th Fluctate
+         tr
+            td 
+              a(id ='name0') name
+            td 
+              a(id ='price0') price
+            td 
+              a(id ='fluctate0') fluctate
+         tr
+            td 
+              a(id ='name1') name
+            td 
+              a(id ='price1') price
+            td 
+              a(id ='fluctate1') fluctate
+         tr
+            td 
+              a(id ='name2') name
+            td 
+              a(id ='price2') price
+            td 
+              a(id ='fluctate2') fluctate
+
+
+
+
+
+      
+    script(src='/socket.io/socket.io.js')
+    script.
+      var socket = io();
+      socket.on("updatePrice", function(msg) {
+        console.log('socket data', msg)
+        msg
+        for(var i in msg)
+        {
+          document.getElementById('name'+i).text = msg[i].name
+          document.getElementById('price'+i).text = msg[i].price.toFixed(1)
+          document.getElementById('fluctate'+i).text = msg[i].fluctateRate + '%'
+          if(msg[i].isUprise){
+            document.getElementById('name'+i).style.color = "#f00"
+            document.getElementById('price'+i).style.color = "#f00"
+            document.getElementById('fluctate'+i).style.color = "#f00"
+          }else {
+            document.getElementById('name'+i).style.color = "#0000ff"
+            document.getElementById('price'+i).style.color = "#0000ff"
+            document.getElementById('fluctate'+i).style.color = "#0000ff"
+          }
+          
+          //- document.getElementById('name'+i).color = 
+        }
+
+      })
+      
