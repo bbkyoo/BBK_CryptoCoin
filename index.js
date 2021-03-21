@@ -7,12 +7,12 @@ var cors = require('cors')
 var app = express()
 app.use(cors())
 var server = require('http').Server(app)
-server.listen(8080, () => {
+server.listen(80, () => {
     console.log('connected')
 })
 var io = require('socket.io')(server, {
     cors: {
-        origin: 'http://localhost:8080',
+        origin: 'http://localhost:80',
         methods: ['GET','POST'],
         credentials: true,   
     }
@@ -51,6 +51,19 @@ app.post('/signup', (req, res) => {
 app.get('/user', (req, res) => {
     console.log('access token body is ',req.headers['access-token'])
     res.send(200)
+})
+
+app.get('/coinData', (req, res) => {
+    bit.getCoinsData( (coins, err) => {
+        bit.getCoinsOrder((orders, err) => {
+            var coinJson = {
+                "data" : coins,
+                "oder" : orders,
+            }
+            res.send(coinJson)
+            console.log(coinJson)
+        })
+    })
 })
  
 app.get('/market', (req, res) => {
@@ -98,8 +111,29 @@ io.on('connection', async (socket) => {   //연결이 들어오면 실행되는 
         console.log('catch')
     })
     playAlert = setInterval(function() { 
-        bit.getSelectCoinData(['BTC', 'ETH', 'XRP'] ,(coins, err) => {
-            socket.emit('updatePrice', coins);
+        bit.getCoinsOrder((coins, err) => {
+            coins.BTC.bids[2].price // 비트코인 매수 주문중 3번째 주문의 가격 예)63,654,145
+            coins.BTC.bids[2].quantity // 비트코인 매수 주문중 3번째 주문의 수량 예)0.00153 
+            coins.BTC.asks[0].price // 비트코인 매도 주문중 1번째 주문의 가격  예)63,654,145
+            coins.BTC.asks[0].quantity // 비트코인 매도 주문중 1번째 주문의 수량 예)0.00153 
+
+            for(coinName in coins)
+            {
+                for(buyOrder in coins[coinName].bids)
+                {
+                    console.log("buy order price = ",buyOrder.price)
+                    console.log("buy order amount = ",buyOrder.quantity)
+                    //안돌려봄, 되는지 몰름, 될거라고 생각함
+                    //이러면 모든 코인들의 모든 매수 주문 가격과 수량들이 출력된다.
+                }
+                for(sellOrder in coins[coinName].asks)
+                {
+                    console.log("sell order price = ",sellOrder.price)
+                    console.log("sell order amount = ",sellOrder.quantity)
+                    //안돌려봄, 되는지 몰름, 될거라고 생각함
+                    //이러면 모든 코인들의 모든 매도 주문 가격과 수량들이 출력된다.
+                }
+            }
         })
     }, 3000);
 }
