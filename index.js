@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser')
 var express = require('express')
-const login = require('./lib/Login')
+const login = require('./lib/login')
 const regist = require('./lib/regist')
 const bit = require('./bitTest')
 var cors = require('cors')
