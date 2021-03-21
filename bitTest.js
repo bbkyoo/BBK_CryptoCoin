@@ -2,6 +2,7 @@ const request_url = require('request');
 
 let Tickerurl = 'https://api.bithumb.com/public/ticker/ALL_KRW';
 
+
 async function getCoins(callback){
         request_url(Tickerurl, async function(error, response, body) {
                 coins = JSON.parse(body).data
@@ -20,6 +21,14 @@ async function getCoin(tartgets, callback){
                 callback(coins, err)
         })
 }
+let Orderurl = 'https://api.bithumb.com/public/orderbook/ALL_KRW';
+async function getCoinsOrder(callback){
+        request_url(Orderurl, async function(error, response, body) {
+                coins = JSON.parse(body).data
+                var err = error
+                callback(coins, err)
+        })
+}
 
 
 function getCurrentPirce(prevClosing, fluctate)
@@ -33,6 +42,6 @@ function isUprisePrice(fluctate)
         { return false; }
 }
 
-
+module.exports.getCoinsOrder = getCoinsOrder
 module.exports.getCoinsData = getCoins
 module.exports.getSelectCoinData = getCoin
