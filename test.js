@@ -1,4 +1,10 @@
-const crtpto = require('crypto')
+var express = require('express')
+var app = express()
+var server = require('http').Server(app)
+server.listen(80, () => {
+    console.log('connected')
+})
 
-console.log("pass = ", crtpto.createHash('sha512').update("123123").digest('base64'))
-//test~
+app.get('/', (req, res) => {
+    res.send("hello world")
+})
