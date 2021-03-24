@@ -2,6 +2,13 @@ const Sequelize = require('sequelize')
 
 module.exports = ((sequelize,DataTypes)=>{
     return sequelize.define('users',{
+        user_id: {
+            type: Sequelize.INTEGER, 
+            allowNull: false,
+            unique: true,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         email:{
             type: Sequelize.STRING(40),
             allowNull: true,
@@ -15,14 +22,10 @@ module.exports = ((sequelize,DataTypes)=>{
             type: Sequelize.STRING(100),
             allowNull: true, // 카카오 로그인은 비번 필요없으니,,
         },
-        prvider :{ // 뭐로 로그인 했는지 : 카카오, 로컬,,
-            type: Sequelize.STRING(10),
-            allowNull: false,
-            defaultValue: 'local',
-        },
-        snsId:{
-            type: Sequelize.STRING(30),
+        cash:{
+            type: Sequelize.INTEGER,
             allowNull: true,
+            defaultValue:0,
         },
 
     },{

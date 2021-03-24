@@ -34,7 +34,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.Users=require('./users')(sequelize,Sequelize);
-//db.Wallet=require('./wallet')(sequelize,Sequelize);
-//db.User.hasMany(db.Wallet, { foreignKey: 'owner', sourceKey: 'id'});
-//db.Wallet.belongsTo(db.User, { foreignKey: 'owner', sourceKey: 'id'});
+db.Wallet=require('./coin_wallet')(sequelize,Sequelize);
+db.User.hasMany(db.Wallet, { foreignKey: 'Userid', onDelete: 'cascade'});
+db.Wallet.belongsTo(db.User);
 module.exports = db;
