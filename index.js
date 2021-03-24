@@ -7,9 +7,11 @@ var cors = require('cors')
 var app = express()
 app.use(cors())
 var server = require('http').Server(app)
+var {sequelize} = require('../models/index')
 server.listen(80, () => {
     console.log('connected')
 })
+sequelize.sync();
 var io = require('socket.io')(server, {
     cors: {
         origin: 'http://localhost:80',
