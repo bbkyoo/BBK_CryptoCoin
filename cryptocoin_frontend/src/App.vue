@@ -86,7 +86,8 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   data: () => ({
-    drawer: null
+    drawer: null,
+    
   }),
   computed: {
     ...mapState(["isLogin"])

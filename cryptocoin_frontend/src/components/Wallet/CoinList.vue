@@ -15,29 +15,69 @@
             </div>
         </div>
         <div class="Coins">
-            <Coin></Coin>
+            <Coin       
+            v-for="name in names" :key="name"
+            :coinname="name" 
+            :current_price="Number(allCoins_data[name].prev_closing_price) + Number(allCoins_data[name].fluctate_24H)"
+            :big_fluctate="Number(allCoins_data[name].fluctate_rate_24H)"
+            :small_fluctate="Number(allCoins_data[name].fluctate_24H)"
+            :trade_money="allCoins_data[name].acc_trade_value_24H"
+            :max_price="Number(allCoins_data[name].max_price)"
+            :min_price="Number(allCoins_data[name].min_price)"
+            :units_traded="Number(allCoins_data[name].units_traded)"
+            :acc_trade_value="Number(allCoins_data[name].acc_trade_value)"
+            :allCoins_order="allCoins_order" 
+            >
+            </Coin>
         </div>
     </div>
 </template>
 
 <script>
 import Coin from './Coin.vue'
+import {getCoinsData} from "../../modules/bitTest"
 
 export default {
     components: {
         Coin
     },
-
     data(){
         return {
+            names: [],
+            allCoins_data: null,
+            allCoins_order: null
         }
     },
     methods: {  
+         playAlert(){  // 이거 method에서 무조건 형식 playAlert(){} 이다 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            getCoinsData((coins, err) => {
+                    if (err){
+                        console.log(err)
+                    }
+                
+                for (var coin_name in coins.data){
+                    this.names.push(coin_name)
+                }     
+            })
+            setInterval(() => {  // setInterval은 setInterval(() => {} 형식을 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 사용!
+                getCoinsData((coins, err) => {
+                    this.allCoins_data = coins.data,
+                    this.allCoins_order = coins.oder
+                   
+                    if (err){
+                        console.log(err)
+                    }
+            })
+            }, 1000)
+        },
     },
-    mounted() {     
+    created() {     
+        this.playAlert()
     }
 }
 </script>
+
+
 
 <style>
 .Coin_List{
@@ -81,25 +121,26 @@ export default {
       -ms-flex: 1;
           flex: 1;
 }
-.Coins::-webkit-scrollbar{
-    width: 5px;
-    height: 5px;
+
+.Coins::-webkit-scrollbar {
+  width: 5px;  
+  height: 5px;  
 }
-.Coins::-webkit-scrollbar-track{
-    background-color: transparent;
+.Coins::-webkit-scrollbar-track {
+  background-color: transparent;
 }
-.Coins::-webkit-scrollbar-track-piece{
-    background-color: transparent;
+.Coins::-webkit-scrollbar-track-piece {
+  background-color: transparent;
 }
-.Coins::-webkit-scrollbar-thumb{
-    border-radius: 8px;
-    background-color: #d9d9d9;
+.Coins::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #d9d9d9;
 }
-.Coins::-webkit-scrollbar-button:start{
-    background-color: transparent;  /* Top, Left 방향의 이동버튼 */
+.Coins::-webkit-scrollbar-button:start {
+  background-color: transparent; 
 }
-.Coins::-webkit-scrollbar-button:end{
-    background-color: transparent; /* Bottom, Right 방향의 이동버튼 */
+.Coins::-webkit-scrollbar-button:end {
+  background-color: transparent; 
 }
 
 </style>

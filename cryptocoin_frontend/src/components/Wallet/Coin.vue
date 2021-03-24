@@ -1,26 +1,63 @@
 <template>
-    <div class="Coin">
+    <div class="Coin" @click="emitCoins()">
         <div class="Coin_Name">
-            <p>name</p>
-            <span>code</span>
+            <p>{{ coinname }}</p>
         </div>
         <div class="Coin_Price">
-            <p>price</p>
+            <p>{{current_price.toLocaleString()}}</p>
         </div>
         <div class="Coin_Change_Price">
-            <p>change_rate</p>
-            <span>change_price</span>
+            <p>{{big_fluctate}}%</p>
+            <span>{{small_fluctate}}</span>
         </div>
         <div class="Coin_Volume">
-            <p>백만</p>
+            <p>{{ parseInt((trade_money * 0.000001).toFixed(0),).toLocaleString() 
+                }}
+            백만
+            </p>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import { eventBus } from "../../main"
 
+export default {
+    data(){
+        return{
+            coins_ord_bids: this.allCoins_order[this.coinname].bids,
+            coins_ord_asks: this.allCoins_order[this.coinname].asks
+        }
+    },
+    methods:{
+        emitCoins(){
+            eventBus.$emit('bitCoin', 
+            this.coinname,
+            this.max_price,
+            this.min_price,
+            this.units_traded,
+            this.acc_trade_value,
+            this.current_price,
+            this.big_fluctate,
+            this.small_fluctate,
+            this.coins_ord_bids,
+            this.coins_ord_asks       
+            )
+        }
+    },
+    props: ["coinname", 
+    "current_price", 
+    "big_fluctate", 
+    "small_fluctate", 
+    "trade_money",
+    "max_price",
+    "min_price",
+    "units_traded",
+    "acc_trade_value",
+    "allCoins_order"
+    ],
 }
+
 </script>
 
 <style>

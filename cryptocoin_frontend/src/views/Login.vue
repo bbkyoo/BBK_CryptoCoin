@@ -26,7 +26,7 @@
                     <v-btn large block depressed color="indigo" router :to="{name: 'users'}" exact :class="{temp: true}" :style="{color:'white'}">
                     회원가입
                     </v-btn>
-                </div>                
+                </div>              
             </v-card>
           </v-flex>
       </v-layout>
@@ -47,7 +47,7 @@ export default {
         ...mapState(['isLogin', "isLoginError"])
     },
     methods: {
-        ...mapActions(["login"]),
+        ...mapActions(["login"])
     }
 }
 </script>

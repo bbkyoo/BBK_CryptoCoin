@@ -2,22 +2,22 @@
     <div class="Coin_Head">
         <div class="Selected">
             <div class="Name">
-                <h3> 비트코인 </h3>    
+                <h3>{{ coinname }}</h3>    
             </div>
             <div class="Info">
                 <div class="Price">
                     <h4>
-                        58,227,000
-                        <span>-</span> 
+                        {{ current_price.toLocaleString() }}
+                        <span>KRW</span> 
                     </h4>
                     <div class="Change">
                         <p>
-                            전일대비:{' '}
+                            전일대비:
                             <span>
-                                5.70 % 
+                                {{ big_fluctate }} % 
                             </span>
                             <span>
-                                -3,517,000 KRW
+                                {{ small_fluctate }} KRW
                             </span>
                         </p>
                     </div>
@@ -28,13 +28,15 @@
                         <p>
                             고가
                             <span>
-                                61,760,000 KRW
+                                {{ max_price.toLocaleString() }}
+                                <em>KRW</em> 
                             </span>
                         </p>
                         <p>
                             저가
                             <span>
-                                58,118,000 KRW
+                                {{ min_price.toLocaleString() }}
+                                <em>KRW</em> 
                             </span>
                         </p>
                     </div>
@@ -42,15 +44,15 @@
                         <p>
                             거래량(24H)
                             <span>
-                                29,171 BTC
-                                <em>-</em>
+                                {{units_traded.toLocaleString()}}
+                                <em>{{ coinname }}</em>
                             </span>
                         </p>
                         <p>
                             거대금(24H)
                             <span>
-                                1,777,117,679,141KRW
-                                <em>-</em>
+                                {{ acc_trade_value.toLocaleString() }}
+                                <em>KRW</em>
                             </span>
                         </p>
                     </div> 
@@ -61,8 +63,35 @@
 </template>
 
 <script>
-export default {
+import { eventBus } from '../../main'
 
+export default {
+    created(){
+        eventBus.$on('bitCoin', (coinname, max_price, min_price, units_traded, acc_trade_value, current_price, big_fluctate, small_fluctate) => {
+            this.coinname = coinname,
+            this.max_price = max_price,
+            this.min_price = min_price,
+            this.units_traded = units_traded,
+            this.acc_trade_value = acc_trade_value,
+            this.current_price = current_price,
+            this.big_fluctate = big_fluctate,
+            this.small_fluctate = small_fluctate
+        })
+    },
+    data() {
+        return{
+            coinname: "BTC",
+            max_price: 0,
+            min_price: 0,
+            units_traded: 0,
+            acc_trade_value: 0,
+            current_price: 0,
+            big_fluctate: 0,
+            small_fluctate: 0  
+        }
+    },
+    methods: {
+    }
 }
 </script>
 

@@ -12,18 +12,42 @@
             </div>
         </div>
         <div class="Orderbook">
-            <OrderBookList></OrderBookList>
-            <OrderBookList></OrderBookList>    
+            <OrderBookList
+            v-for="bid in bids" :key="bid"
+            :bid_price="Number(bid.price)"
+            :bid_quantity="bid.quantity" 
+            ></OrderBookList>
+
+            <OrderBookList
+            v-for="ask in asks" :key="ask"
+            :ask_price="Number(ask.price)"
+            :ask_quantity="ask.quantity"
+            ></OrderBookList>    
         </div>
     </div>
 </template>
 
 <script>
 import OrderBookList from '@/components/CoinContent/OrderBookList'
+import { eventBus } from "../../main"
 
 export default {
     components: {
         OrderBookList
+    },
+    data(){
+        return {
+            bids: {},
+            asks: {}
+        }
+    },
+    methods:{                             
+    },
+    created(){     
+        eventBus.$on('bitCoin', (coinname, max_price, min_price, units_traded, acc_trade_value, current_price, big_fluctate, small_fluctate,coins_ord_bids,coins_ord_asks) => {
+            this.bids = coins_ord_bids,
+            this.asks = coins_ord_asks
+        }) 
     }
 }
 </script>
