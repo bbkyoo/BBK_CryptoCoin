@@ -1,29 +1,30 @@
 const Sequelize = require('sequelize')
 
-module.exports = ((sequelize,DataTypes)=>{
+
+module.exports = (sequelize,DataTypes)=>{
     return sequelize.define('users',{
         user_id: {
-            type: Sequelize.INTEGER, 
+            type: DataTypes.INTEGER, 
             allowNull: false,
             unique: true,
             autoIncrement: true,
             primaryKey: true,
         },
         email:{
-            type: Sequelize.STRING(40),
+            type: DataTypes.STRING(40),
             allowNull: true,
             unique: true,
         },
         name:{
-            type: Sequelize.STRING(15),
+            type: DataTypes.STRING(15),
             allowNull: false,
         },
         password:{
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: true, // 카카오 로그인은 비번 필요없으니,,
         },
         cash:{
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: true,
             defaultValue:0,
         },
@@ -32,4 +33,4 @@ module.exports = ((sequelize,DataTypes)=>{
         timestamps:true,
         paranoid : true, // 삭제일 (복구용)
     })
-})
+}

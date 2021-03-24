@@ -35,6 +35,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.Users=require('./users')(sequelize,Sequelize);
 db.Wallet=require('./coin_wallet')(sequelize,Sequelize);
-db.User.hasMany(db.Wallet, { foreignKey: 'Userid', onDelete: 'cascade'});
-db.Wallet.belongsTo(db.User);
+db.Users.hasMany(db.Wallet, { foreignKey: 'Userid', onDelete: 'cascade'});
+db.Wallet.belongsTo(db.Users);
 module.exports = db;

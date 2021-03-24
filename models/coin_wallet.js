@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = ((sequelize,DataTypes)=>{
-    return sequelize.define('coin_wallets',{
+    let wallet = sequelize.define('coin_wallets',{
         name:{
             type: Sequelize.STRING(10),
             allowNull: false,
@@ -22,4 +22,5 @@ module.exports = ((sequelize,DataTypes)=>{
         timestamps:true,
         paranoid : true, // 삭제일 (복구용)
     })
+    return wallet;
 })
