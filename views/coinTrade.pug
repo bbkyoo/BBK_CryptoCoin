@@ -15,3 +15,15 @@ html
                 input(type="text" name='user_id' placeholder='user_id') 
             p 
                 input(type="submit")
+        h2 Sell 
+        form(action="/market/selloreder" method = 'post')
+            p 
+                input(type='text' name='type' placeholder='coinName')
+            p 
+                input(type="text" name='quantity' placeholder='quantity') 
+            p 
+                input(type="text" name='price' placeholder='price') 
+            p 
+                input(type="text" name='user_id' placeholder='user_id') 
+            p 
+                input(type="submit")

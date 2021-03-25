@@ -95,6 +95,19 @@ app.post('/market/buyoreder', (req, res) => {
     
 })
 
+app.post('/market/selloreder', (req, res) => {
+    // 종목 수량 가격 토큰
+    const order = {
+        type: req.body.type,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        id: req.body.user_id,
+    }
+    //해당 id 지갑에 접근
+    tradSys.SellCoin(order)
+    
+})
+
 app.post('/login', (req, res) => {
     var email = req.body.email   // id 이 변수명이 프론트에서 전달되는 변수와 동일한 이름이어야 함
     var password = req.body.password  // pwd 이 변수명이 프론트에서 전달되는 변수와 동일한 이름이어야 함
