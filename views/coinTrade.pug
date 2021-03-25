@@ -4,7 +4,7 @@ html
         meta(charset = 'utf-8')
     body 
         h2 Buy 
-        form(action="/market/buyoreder" method = 'post')
+        form(action="/market/buyorder" method = 'post')
             p 
                 input(type='text' name='type' placeholder='coinName')
             p 
@@ -16,7 +16,7 @@ html
             p 
                 input(type="submit")
         h2 Sell 
-        form(action="/market/selloreder" method = 'post')
+        form(action="/market/sellorder" method = 'post')
             p 
                 input(type='text' name='type' placeholder='coinName')
             p 
