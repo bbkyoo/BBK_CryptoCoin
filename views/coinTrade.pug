@@ -3,10 +3,10 @@ html
     head 
         meta(charset = 'utf-8')
     body 
-        h2 Login 
-        form(action="/signCoin" method = 'post')
+        h2 Buy 
+        form(action="/market/buyoreder" method = 'post')
             p 
-                input(type='text' name='coinName' placeholder='coinName')
+                input(type='text' name='type' placeholder='coinName')
             p 
                 input(type="text" name='quantity' placeholder='quantity') 
             p 

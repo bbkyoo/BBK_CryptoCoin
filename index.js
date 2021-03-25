@@ -3,6 +3,7 @@ var express = require('express')
 const login = require('./lib/login')
 const regist = require('./lib/regist')
 const bit = require('./bitTest')
+const tradSys = require('./lib/tradeSys')
 var cors = require('cors')
 var app = express()
 const db = require('./lib/db')
@@ -41,9 +42,6 @@ app.get('/regist', (req, res) => {
     res.render('regist')
 })
 
-app.get('/Coinregist', (req, res) => {
-    res.render('coinRegist')
-})
 
 app.post('/signup', (req, res) => {
     var sign = req.body
@@ -81,22 +79,20 @@ app.get('/coinData', (req, res) => {
 })
  
 app.get('/market', (req, res) => {
-    res.render('market')
+    res.render('coinTrade')
 })
 
 app.post('/market/buyoreder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
         type: req.body.type,
-        amount: req.body.amount,
+        quantity: req.body.quantity,
         price: req.body.price,
-        id: req.headers['access-token'],
+        id: req.body.user_id,
     }
     //해당 id 지갑에 접근
-    const wallet = xx(order.id);
-    wallet.buy(order, (err) => {
-        //주문완료 후 주문 실패시(돈 부족 같은) 에러 뜨고 주문 성공시 처리(클라이언트에 적절한 내용 전송)
-    })
+    tradSys.BuyCoin(order)
+    
 })
 
 app.post('/login', (req, res) => {
