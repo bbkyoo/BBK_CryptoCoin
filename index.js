@@ -53,12 +53,6 @@ app.post('/signup', (req, res) => {
     })
 })
 
-app.post('/signCoin', (req, res) => {
-    var sign = req.body
-    console.log('requset = ', sign)
-    db.CreateCoin(sign);
-    res.send(200)
-})
 
 app.get('/user', (req, res) => {
     console.log('access token body is ',req.headers['access-token'])
@@ -73,7 +67,6 @@ app.get('/coinData', (req, res) => {
                 "order" : orders,
             }
             res.send(coinJson)
-            console.log(coinJson)
         })
     })
 })
