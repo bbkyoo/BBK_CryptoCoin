@@ -5,6 +5,7 @@ const regist = require('./lib/regist')
 const bit = require('./bitTest')
 var cors = require('cors')
 var app = express()
+const db = require('../lib/db')
 app.use(cors())
 var server = require('http').Server(app)
 var {sequelize} = require('./models/index')
@@ -40,6 +41,10 @@ app.get('/regist', (req, res) => {
     res.render('regist')
 })
 
+app.get('/Coinregist', (req, res) => {
+    res.render('coinRegist')
+})
+
 app.post('/signup', (req, res) => {
     var sign = req.body
     console.log('requset = ', sign)
@@ -48,6 +53,13 @@ app.post('/signup', (req, res) => {
         console.log('create success created id = ', createdUserId)
         res.send(200)
     })
+})
+
+app.post('/signCoin', (req, res) => {
+    var sign = req.body
+    console.log('requset = ', sign)
+    db.CreateCoin(sign);
+    res.send(200)
 })
 
 app.get('/user', (req, res) => {

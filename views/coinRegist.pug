@@ -1,0 +1,17 @@
+doctype html 
+html 
+    head 
+        meta(charset = 'utf-8')
+    body 
+        h2 Login 
+        form(action="/signCoin" method = 'post')
+            p 
+                input(type='text' name='coinName' placeholder='coinName')
+            p 
+                input(type="text" name='quantity' placeholder='quantity') 
+            p 
+                input(type="text" name='price' placeholder='price') 
+            p 
+                input(type="text" name='user_id' placeholder='user_id') 
+            p 
+                input(type="submit")
