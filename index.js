@@ -70,7 +70,7 @@ app.get('/coinData', (req, res) => {
         bit.getCoinsOrder((orders, err) => {
             var coinJson = {
                 "data" : coins,
-                "oder" : orders,
+                "order" : orders,
             }
             res.send(coinJson)
             console.log(coinJson)
@@ -82,7 +82,7 @@ app.get('/market', (req, res) => {
     res.render('coinTrade')
 })
 
-app.post('/market/buyoreder', (req, res) => {
+app.post('/market/buyorder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
         type: req.body.type,
@@ -95,7 +95,7 @@ app.post('/market/buyoreder', (req, res) => {
     
 })
 
-app.post('/market/selloreder', (req, res) => {
+app.post('/market/sellorder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
         type: req.body.type,
