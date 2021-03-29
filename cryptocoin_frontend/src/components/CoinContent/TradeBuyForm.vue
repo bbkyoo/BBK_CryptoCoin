@@ -5,7 +5,7 @@
                 <p>보유 원화</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -13,7 +13,7 @@
                 <p>매수 가격</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="1000" :value="bid_price"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -21,7 +21,7 @@
                 <p>매수 수량</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -29,7 +29,7 @@
                 <p>매수 총액</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0"></p>
             </div>
         </div>
 
@@ -45,8 +45,19 @@
 </template>
 
 <script>
-export default {
+import { eventBus } from "../../main"
 
+export default {
+    created(){
+        eventBus.$on('bids',(bid_price) =>{
+            this.bid_price = bid_price
+        })
+    },
+    data(){
+        return{
+            bid_price: 0
+        }
+    }
 }
 </script>
 

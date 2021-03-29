@@ -44,8 +44,8 @@ export default {
     data(){
         return {
             names: [],
-            allCoins_data: null,
-            allCoins_order: null
+            allCoins_data: {},
+            allCoins_order: {}
         }
     },
     methods: {  
@@ -62,7 +62,7 @@ export default {
             setInterval(() => {  // setInterval은 setInterval(() => {} 형식을 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 사용!
                 getCoinsData((coins, err) => {
                     this.allCoins_data = coins.data,
-                    this.allCoins_order = coins.oder
+                    this.allCoins_order = coins.order
                    
                     if (err){
                         console.log(err)

@@ -38,7 +38,7 @@ export default {
         isSell(){
             this.Buy = false
         }
-    }
+    }   
 }
 </script>
 

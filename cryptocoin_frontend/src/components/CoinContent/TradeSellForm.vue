@@ -13,7 +13,7 @@
                 <p>매도 가격</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="100,000,000" :value="ask_price"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -45,8 +45,19 @@
 </template>
 
 <script>
-export default {
+import { eventBus } from "../../main"
 
+export default {
+    created(){
+        eventBus.$on('asks',(ask_price) =>{
+            this.ask_price = ask_price
+        })
+    },
+    data(){
+        return{
+            ask_price: 0
+        }
+    }
 }
 </script>
 
