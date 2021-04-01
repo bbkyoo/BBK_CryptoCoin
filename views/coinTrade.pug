@@ -6,11 +6,11 @@ html
         h2 Buy 
         form(action="/market/buyorder" method = 'post')
             p 
-                input(type='text' name='type' placeholder='coinName')
+                input(type='text' name='coinname' placeholder='coinName')
             p 
-                input(type="text" name='quantity' placeholder='quantity') 
+                input(type="text" name='bid_quantity' placeholder='quantity') 
             p 
-                input(type="text" name='price' placeholder='price') 
+                input(type="text" name='bid_price' placeholder='price') 
             p 
                 input(type="text" name='user_id' placeholder='user_id') 
             p 
@@ -18,11 +18,11 @@ html
         h2 Sell 
         form(action="/market/sellorder" method = 'post')
             p 
-                input(type='text' name='type' placeholder='coinName')
+                input(type='text' name='coinname' placeholder='coinName')
             p 
-                input(type="text" name='quantity' placeholder='quantity') 
+                input(type="text" name='ask_quantity' placeholder='quantity') 
             p 
-                input(type="text" name='price' placeholder='price') 
+                input(type="text" name='ask_price' placeholder='price') 
             p 
                 input(type="text" name='user_id' placeholder='user_id') 
             p 

@@ -78,9 +78,9 @@ app.get('/market', (req, res) => {
 app.post('/market/buyorder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
-        type: req.body.type,
-        quantity: req.body.quantity,
-        price: req.body.price,
+        type: req.body.coinname,
+        quantity: req.body.bid_quantity,
+        price: req.body.bid_price,
         id: req.body.user_id,
     }
     //해당 id 지갑에 접근
@@ -88,12 +88,16 @@ app.post('/market/buyorder', (req, res) => {
     
 })
 
+app.post('/market/owner', (req,res) => {
+
+})
+
 app.post('/market/sellorder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
-        type: req.body.type,
-        quantity: req.body.quantity,
-        price: req.body.price,
+        type: req.body.coinname,
+        quantity: req.body.ask_quantity,
+        price: req.body.ask_price,
         id: req.body.user_id,
     }
     //해당 id 지갑에 접근
