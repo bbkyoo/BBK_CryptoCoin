@@ -83,6 +83,7 @@ app.post('/market/buyorder', (req, res) => {
         price: req.body.bid_price,
         id: req.body.user_id,
     }
+    console.log("buyorder =",order)
     //해당 id 지갑에 접근
     tradSys.BuyCoin(order)
     
@@ -100,6 +101,7 @@ app.post('/market/sellorder', (req, res) => {
         price: req.body.ask_price,
         id: req.body.user_id,
     }
+    console.log("sellorder =",order)
     //해당 id 지갑에 접근
     tradSys.SellCoin(order)
     
