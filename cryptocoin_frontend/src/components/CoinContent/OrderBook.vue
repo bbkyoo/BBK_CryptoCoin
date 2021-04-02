@@ -12,19 +12,19 @@
             </div>
         </div>
         <div class="Orderbook">
-            <OrderBookList
-            v-for="bid in bids" :key="bid"
+            <OrderBookList             
+            v-for="(bid, idx) in bids" :key="String(bid.price)+String(bid.quantity)+String(idx)"    
             :bid_price="Number(bid.price)"
             :bid_quantity="bid.quantity" 
             ></OrderBookList>
 
             <OrderBookList
-            v-for="ask in asks" :key="ask"
+            v-for="(ask, idx) in asks" :key="String(ask.price)+String(ask.quantity)+String(idx)" 
             :ask_price="Number(ask.price)"
             :ask_quantity="ask.quantity"
-            ></OrderBookList>    
+            ></OrderBookList>               
         </div>
-    </div>
+    </div>                                      
 </template>
 
 <script>
@@ -37,16 +37,16 @@ export default {
     },
     data(){
         return {
-            bids: {},
-            asks: {}
+            bids: null,
+            asks: null
         }
-    },
+    },              
     methods:{                             
     },
-    created(){     
+    mounted(){      
         eventBus.$on('bitCoin', (coinname, max_price, min_price, units_traded, acc_trade_value, current_price, big_fluctate, small_fluctate,coins_ord_bids,coins_ord_asks) => {
             this.bids = coins_ord_bids,
-            this.asks = coins_ord_asks
+            this.asks = coins_ord_asks 
         }) 
     }
 }
@@ -83,7 +83,6 @@ export default {
     margin-left: 5px;
     font-weight: 500; 
 }
-
 
 .Orderbook::-webkit-scrollbar {
     width: 5px;
@@ -122,8 +121,6 @@ export default {
 }
 
 </style>
-
-
 
 
 

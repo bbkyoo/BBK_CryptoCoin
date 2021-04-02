@@ -1,5 +1,5 @@
 <template>
-    <div class="Coin" @click="emitCoins()">
+    <div class="Coin" @click="emitCoins()"> 
         <div class="Coin_Name">
             <p>{{ coinname }}</p>
         </div>
@@ -17,26 +17,30 @@
             </p>
         </div>
     </div>
-</template>
+</template>             
 
 <script>
 import { eventBus } from "../../main"
 
 export default {
-    data(){
-        return{
-            coins_ord_bids: this.allCoins_order[this.coinname].bids,
-            coins_ord_asks: this.allCoins_order[this.coinname].asks
-        }
+    created(){ 
     },
+    data(){
+        return{             
+            coins_ord_bids: null,   
+            coins_ord_asks: null
+        }
+    },          
     methods:{
         emitCoins(){
+            this.coins_ord_bids = this.allCoins_order[this.coinname].bids,
+            this.coins_ord_asks = this.allCoins_order[this.coinname].asks,
             eventBus.$emit('bitCoin', 
             this.coinname,
             this.max_price,
             this.min_price,
             this.units_traded,
-            this.acc_trade_value,
+            this.acc_trade_value,                      
             this.current_price,
             this.big_fluctate,
             this.small_fluctate,
@@ -46,7 +50,7 @@ export default {
         }
     },
     props: ["coinname", 
-    "current_price", 
+    "current_price",    
     "big_fluctate", 
     "small_fluctate", 
     "trade_money",

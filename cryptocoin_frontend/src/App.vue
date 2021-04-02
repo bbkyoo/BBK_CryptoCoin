@@ -65,12 +65,12 @@
           </v-list>
             </v-menu>
 
-          <v-btn color="white" icon flat v-else router :to="{name: 'login'}">LOG IN</v-btn>
+          <v-btn color="white" icon text v-else router :to="{name: 'login'}">LOG IN</v-btn>
         </v-toolbar-items>
       </v-app-bar>
-      <v-content>
+      <v-main>
         <router-view></router-view>
-      </v-content>
+      </v-main>
       
       <v-footer
         color="indigo"
@@ -85,10 +85,11 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  data: () => ({
-    drawer: null,
-    
-  }),
+  data: function(){
+    return {
+      drawer: null
+    } 
+  },
   computed: {
     ...mapState(["isLogin"])
   },

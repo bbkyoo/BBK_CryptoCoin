@@ -9,7 +9,7 @@
           </div>
       </div>
         <div v-if="Buy">
-            <TradeBuyForm></TradeBuyForm>
+            <TradeBuyForm :coinname="name"></TradeBuyForm>
         </div>
         <div v-else>
             <TradeSellForm></TradeSellForm>
@@ -20,22 +20,29 @@
 <script>
 import TradeBuyForm from './TradeBuyForm' 
 import TradeSellForm from './TradeSellForm'
+import { eventBus } from "../../main"
 
 export default {
+    created(){
+        eventBus.$on('bitCoin', (coinname) => {
+            this.name = coinname
+        })
+    },
     components: {
         TradeBuyForm,
         TradeSellForm
     },
     data(){
         return{
-            Buy: false
+            Buy: false,
+            name: null
         }
     },
     methods:{
         isBuy(){
             this.Buy = true
         },
-        isSell(){
+        isSell(){                   
             this.Buy = false
         }
     }   

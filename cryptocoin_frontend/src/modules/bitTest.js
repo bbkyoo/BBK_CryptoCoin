@@ -9,7 +9,7 @@ async function getCoins(callback){
                 callback(coins, err)
         })
 }
-
+                        
 async function getCoin(tartgets, callback){
         request_url(Tickerurl, async function(error, response, body) {
                 var obj = JSON.parse(body)

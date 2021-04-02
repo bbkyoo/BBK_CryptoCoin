@@ -5,7 +5,7 @@
                 <p>보유 원화</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0" v-model="total_coin"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -13,7 +13,7 @@
                 <p>매도 가격</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000" :value="ask_price"></p>
+                <p><input type="text" placeholder="0" :value="ask_price"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -21,7 +21,7 @@
                 <p>매도 수량</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0" v-model="ask_quantity"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -29,23 +29,25 @@
                 <p>매도 총액</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="100,000,000"></p>
+                <p><input type="text" placeholder="0" v-model="total_asks"></p>
             </div>
         </div>
 
         <div class="Form_Submit">
-            <button type="submit" :style = "{backgroundColor: type === 'ASK' ? '#f14f4f' : '#7878e3'}" @click="trade">
+            <button type="submit" >
                 매도
             </button>  
         </div>
-        
     </div>
 
 
 </template>
 
 <script>
+
 import { eventBus } from "../../main"
+
+// :style = "{backgroundColor: type === 'ASK' ? '#f14f4f' : '#7878e3'}"
 
 export default {
     created(){
@@ -55,8 +57,14 @@ export default {
     },
     data(){
         return{
-            ask_price: 0
+            total_coin: 100000000,
+            ask_price: 0,
+            ask_quantity: 0,
+            total_asks: 0
         }
+    },
+    updated(){
+        this.total_asks = this.ask_price * this.ask_quantity
     }
 }
 </script>

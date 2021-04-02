@@ -14,10 +14,10 @@
                 <span>거래대금</span>
             </div>
         </div>
-        <div class="Coins">
-            <Coin       
-            v-for="name in names" :key="name"
-            :coinname="name" 
+        <div class="Coins"> 
+            <Coin         
+            v-for="name in names" :key="name"           
+            :coinname="name"                            
             :current_price="Number(allCoins_data[name].prev_closing_price) + Number(allCoins_data[name].fluctate_24H)"
             :big_fluctate="Number(allCoins_data[name].fluctate_rate_24H)"
             :small_fluctate="Number(allCoins_data[name].fluctate_24H)"
@@ -26,7 +26,7 @@
             :min_price="Number(allCoins_data[name].min_price)"
             :units_traded="Number(allCoins_data[name].units_traded)"
             :acc_trade_value="Number(allCoins_data[name].acc_trade_value)"
-            :allCoins_order="allCoins_order" 
+            :allCoins_order="allCoins_order"     
             >
             </Coin>
         </div>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+
 import Coin from './Coin.vue'
 import {getCoinsData} from "../../modules/bitTest"
 
@@ -49,24 +50,31 @@ export default {
         }
     },
     methods: {  
-         playAlert(){  // 이거 method에서 무조건 형식 playAlert(){} 이다 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        playAlert(){  // 이거 method에서 무조건 형식 playAlert(){} 이다 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            getCoinsData((coins, err) => {
+                    this.allCoins_data = coins.data,
+                    this.allCoins_order = coins.order 
+                    if (err){
+                        console.log(err)
+                    } 
+            })             
+
             getCoinsData((coins, err) => {
                     if (err){
                         console.log(err)
                     }
-                
+            
                 for (var coin_name in coins.data){
-                    this.names.push(coin_name)
-                }     
-            })
+                    this.names.push(coin_name) 
+                }   
+            })                           
             setInterval(() => {  // setInterval은 setInterval(() => {} 형식을 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 사용!
                 getCoinsData((coins, err) => {
                     this.allCoins_data = coins.data,
-                    this.allCoins_order = coins.order
-                   
+                    this.allCoins_order = coins.order 
                     if (err){
                         console.log(err)
-                    }
+                    } 
             })
             }, 1000)
         },
@@ -144,8 +152,6 @@ export default {
 }
 
 </style>
-
-
 
 
 

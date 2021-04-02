@@ -22,7 +22,7 @@ export default {
     return {
       email: null,
       password: null,
-      name: null,
+      name: null
     };
   },
   methods: {
