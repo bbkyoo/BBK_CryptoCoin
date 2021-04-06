@@ -4,9 +4,12 @@ const login = require('./lib/login')
 const regist = require('./lib/regist')
 const bit = require('./bitTest')
 const tradSys = require('./lib/tradeSys')
+const wallet = require('./lib/wallets')
+let secretObj = require("./config/jwt");
 var cors = require('cors')
 var app = express()
 const db = require('./lib/db')
+let jwt = require("jsonwebtoken");
 app.use(cors())
 var server = require('http').Server(app)
 var {sequelize} = require('./models/index')
@@ -89,8 +92,13 @@ app.post('/market/buyorder', (req, res) => {
     
 })
 
-app.post('/market/owner', (req,res) => {
-
+app.post('/userWallet', (req,res) => {
+    var token = req.headers['access-token']
+    console.log('access token body is ',token)
+    var user = jwt.verify(token,secretObj.secret)
+    userWallet = wallet.GetWallet(9)
+    console.log('access userwallet is ',userWallet)
+    res.send(userWallet)
 })
 
 app.post('/market/sellorder', (req, res) => {
