@@ -92,7 +92,7 @@ app.post('/market/buyorder', (req, res) => {
     
 })
 
-app.post('/userWallet', (req,res) => {
+app.get('/userWallet', (req,res) => {
     // var token = req.headers['access-token']
     // console.log('access token body is ',token)
     // var user = jwt.verify(token,secretObj.secret)
