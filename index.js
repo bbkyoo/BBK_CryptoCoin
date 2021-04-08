@@ -101,6 +101,16 @@ app.get('/userWallet', async function(req,res){
     res.send(userWallet)
 })
 
+app.post('/userWallet', async function(req,res){
+    console.log("bbk token in ", req)
+    // var token = req.headers['access-token']
+    // console.log('access token body is ',token)
+    // var user = jwt.verify(token,secretObj.secret)
+    userWallet = await wallet.GetWallet(9)
+    console.log('access userwallet is ',userWallet)
+    res.send(userWallet)
+})
+
 app.post('/market/sellorder', (req, res) => {
     // 종목 수량 가격 토큰
     const order = {
