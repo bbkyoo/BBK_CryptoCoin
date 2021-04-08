@@ -9,7 +9,6 @@ let secretObj = require("./config/jwt");
 var cors = require('cors')
 var app = express()
 const db = require('./lib/db')
-let jwt = require("jsonwebtoken");
 app.use(cors())
 var server = require('http').Server(app)
 var {sequelize} = require('./models/index')
