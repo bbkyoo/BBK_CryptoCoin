@@ -105,6 +105,7 @@ app.post('/userWallet', async function(req,res){
     var token = req.body.tokens
     console.log('access token body is ',token)
     var user = jwt.verify(token,secretObj.secret)
+    console.log("token user is ", user)
     userWallet = await wallet.GetWallet(user.id)
     console.log('access userwallet is ',userWallet)
     res.send(userWallet)
