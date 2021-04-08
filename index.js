@@ -6,6 +6,7 @@ const bit = require('./bitTest')
 const tradSys = require('./lib/tradeSys')
 const wallet = require('./lib/wallets')
 let secretObj = require("./config/jwt");
+let jwt = require("jsonwebtoken");
 var cors = require('cors')
 var app = express()
 const db = require('./lib/db')
@@ -101,11 +102,10 @@ app.get('/userWallet', async function(req,res){
 })
 
 app.post('/userWallet', async function(req,res){
-    console.log("bbk token in ", req.body)
-    // var token = req.headers['access-token']
-    // console.log('access token body is ',token)
-    // var user = jwt.verify(token,secretObj.secret)
-    userWallet = await wallet.GetWallet(9)
+    var token = req.body.tokens
+    console.log('access token body is ',token)
+    var user = jwt.verify(token,secretObj.secret)
+    userWallet = await wallet.GetWallet(user.id)
     console.log('access userwallet is ',userWallet)
     res.send(userWallet)
 })
