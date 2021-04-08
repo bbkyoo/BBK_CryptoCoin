@@ -88,7 +88,7 @@ app.post('/market/buyorder', async function(req, res){
     }
     console.log("buyorder =",order)
     //해당 id 지갑에 접근
-    res.sendDate(await tradSys.BuyCoin(order))
+    res.sendDate({balance: await tradSys.BuyCoin(order)})
     
 })
 
@@ -121,7 +121,7 @@ app.post('/market/sellorder', async function(req, res){
     }
     console.log("sellorder =",order)
     //해당 id 지갑에 접근
-    res.sendDate(await tradSys.SellCoin(order))
+    res.send({balance: await tradSys.SellCoin(order)})
     
 })
 
