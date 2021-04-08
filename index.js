@@ -128,7 +128,7 @@ app.post('/market/sellorder', (req, res) => {
 app.post('/login', (req, res) => {
     var email = req.body.email   // id 이 변수명이 프론트에서 전달되는 변수와 동일한 이름이어야 함
     var password = req.body.password  // pwd 이 변수명이 프론트에서 전달되는 변수와 동일한 이름이어야 함
-
+    console.log("login user =",email)
     const user = login(email, password, (err, token) => {
         if(err) //err에는 아이디가 틀렸는지 비밀번호가 틀렸는지 각각에 따른 에러메시지가 들어있다
         {
