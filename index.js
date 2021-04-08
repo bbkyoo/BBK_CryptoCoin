@@ -102,7 +102,7 @@ app.get('/userWallet', async function(req,res){
 })
 
 app.post('/userWallet', async function(req,res){
-    console.log("bbk token in ", req)
+    console.log("bbk token in ", req.body)
     // var token = req.headers['access-token']
     // console.log('access token body is ',token)
     // var user = jwt.verify(token,secretObj.secret)
