@@ -78,7 +78,7 @@ app.get('/market', (req, res) => {
     res.render('coinTrade')
 })
 
-app.post('/market/buyorder', (req, res) => {
+app.post('/market/buyorder', async function(req, res){
     // 종목 수량 가격 토큰
     const order = {
         type: req.body.coinname,
@@ -88,7 +88,7 @@ app.post('/market/buyorder', (req, res) => {
     }
     console.log("buyorder =",order)
     //해당 id 지갑에 접근
-    res.send(tradSys.BuyCoin(order))
+    res.send(await tradSys.BuyCoin(order))
     
 })
 
@@ -111,7 +111,7 @@ app.post('/userWallet', async function(req,res){
     res.send(userWallet)
 })
 
-app.post('/market/sellorder', (req, res) => {
+app.post('/market/sellorder', async function(req, res){
     // 종목 수량 가격 토큰
     const order = {
         type: req.body.coinname,
@@ -121,7 +121,7 @@ app.post('/market/sellorder', (req, res) => {
     }
     console.log("sellorder =",order)
     //해당 id 지갑에 접근
-    res.send(tradSys.SellCoin(order))
+    res.send(await tradSys.SellCoin(order))
     
 })
 
