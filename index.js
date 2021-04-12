@@ -107,7 +107,6 @@ app.post('/userWallet', async function(req,res){
     var user = jwt.verify(token,secretObj.secret)
     console.log("token user is ", user)
     userWallet = await wallet.GetWallet(user.id)
-    console.log('access userwallet is ',userWallet)
     res.send(userWallet)
 })
 
@@ -121,7 +120,11 @@ app.post('/market/sellorder', async function(req, res){
     }
     console.log("sellorder =",order)
     //해당 id 지갑에 접근
-    res.send({balance: await tradSys.SellCoin(order)})
+    try {
+        res.send({balance: await tradSys.SellCoin(order)})
+    } catch (error) {
+        res.send(false)
+    }
     
 })
 
