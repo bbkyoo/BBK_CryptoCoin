@@ -5,7 +5,8 @@
     "database": "userData",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorAliases":false
+    "operatorAliases":false,
+    "logging": false
   },
   "test": {
     "username": "root",
