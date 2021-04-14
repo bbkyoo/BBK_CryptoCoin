@@ -84,7 +84,7 @@ app.post('/market/buyorder', async function(req, res){
         type: req.body.coinname,
         quantity: req.body.bid_quantity,
         price: req.body.bid_price,
-        id: req.body.user_id,
+        id: jwt.verify(req.body.user_id,secretObj.secret).id,
     }
     console.log("buyorder =",order)
     //해당 id 지갑에 접근
@@ -114,7 +114,7 @@ app.post('/market/sellorder', async function(req, res){
         type: req.body.coinname,
         quantity: req.body.ask_quantity,
         price: req.body.ask_price,
-        id: req.body.user_id,
+        id: jwt.verify(req.body.user_id,secretObj.secret).id,
     }
     console.log("sellorder =",order)
     //해당 id 지갑에 접근
