@@ -10,8 +10,7 @@ export default new Vuex.Store({
     userInfo: null,
     isLogin: false,
     isLoginError: false,
-    names: [],
-    allCoins: null
+    tokens: null
   },
   getters: {
   },
@@ -54,9 +53,9 @@ export default new Vuex.Store({
       commit('logout')
       router.push({name: 'home'})
     },
-    getMemberInfo({ commit }){
+    getMemberInfo({ state ,commit }){
       let token = localStorage.getItem("access_token")
-
+      state.tokens = token
       let config = {
         headers: {
           'access-token': token

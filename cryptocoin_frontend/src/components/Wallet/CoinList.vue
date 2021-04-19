@@ -16,7 +16,7 @@
         </div>
         <div class="Coins"> 
             <Coin         
-            v-for="name in names" :key="name"           
+            v-for="(name, index) in names" :key="index"           
             :coinname="name"                            
             :current_price="Number(allCoins_data[name].prev_closing_price) + Number(allCoins_data[name].fluctate_24H)"
             :big_fluctate="Number(allCoins_data[name].fluctate_rate_24H)"
@@ -131,24 +131,24 @@ export default {
 }
 
 .Coins::-webkit-scrollbar {
-  width: 5px;  
-  height: 5px;  
+    width: 5px;  
+    height: 5px;  
 }
 .Coins::-webkit-scrollbar-track {
-  background-color: transparent;
+    background-color: transparent;
 }
 .Coins::-webkit-scrollbar-track-piece {
-  background-color: transparent;
+    background-color: transparent;
 }
 .Coins::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: #d9d9d9;
+    border-radius: 8px;
+    background-color: #d9d9d9;
 }
 .Coins::-webkit-scrollbar-button:start {
-  background-color: transparent; 
+    background-color: transparent; 
 }
 .Coins::-webkit-scrollbar-button:end {
-  background-color: transparent; 
+    background-color: transparent; 
 }
 
 </style>

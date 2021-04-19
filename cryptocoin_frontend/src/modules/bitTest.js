@@ -24,8 +24,6 @@ async function getCoin(tartgets, callback){
         })
 }
 
-// let Orderurl = 'https://api.bithumb.com/public/orderbook/ALL_KRW' 
-
 async function getCoinsOrder(coinname ,callback){
         request_url(Tickerurl , async function(error, response, body) {
                 var coins = body
@@ -33,17 +31,6 @@ async function getCoinsOrder(coinname ,callback){
                 callback(coins, err)
         })
 }
-
-// function getCurrentPirce(prevClosing, fluctate)
-// { return parseFloat(prevClosing) + parseFloat(fluctate);}
-
-// function isUprisePrice(fluctate)
-// { 
-//         if(parseFloat(fluctate) > 0) 
-//         { return true; }
-//         else 
-//         { return false; }
-// }
 
 
 module.exports.getCoinsOrder = getCoinsOrder

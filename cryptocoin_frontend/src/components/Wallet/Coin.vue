@@ -35,6 +35,7 @@ export default {
         emitCoins(){
             this.coins_ord_bids = this.allCoins_order[this.coinname].bids,
             this.coins_ord_asks = this.allCoins_order[this.coinname].asks,
+            
             eventBus.$emit('bitCoin', 
             this.coinname,
             this.max_price,

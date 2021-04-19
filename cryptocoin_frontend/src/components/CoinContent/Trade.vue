@@ -9,10 +9,16 @@
           </div>
       </div>
         <div v-if="Buy">
-            <TradeBuyForm :coinname="name"></TradeBuyForm>
+            <TradeBuyForm 
+            :coinname="name"
+            :myCoins="myCoins_cash"
+            ></TradeBuyForm>
         </div>
         <div v-else>
-            <TradeSellForm></TradeSellForm>
+            <TradeSellForm
+            :coinname="name"
+            :myCoins="myCoins_cash"
+            ></TradeSellForm>
         </div>
     </div>
 </template>
@@ -21,6 +27,8 @@
 import TradeBuyForm from './TradeBuyForm' 
 import TradeSellForm from './TradeSellForm'
 import { eventBus } from "../../main"
+import axios from "axios"
+import { mapState } from 'vuex'
 
 export default {
     created(){
@@ -28,24 +36,47 @@ export default {
             this.name = coinname
         })
     },
+    mounted(){
+        this.wallets()
+    },    
     components: {
         TradeBuyForm,
         TradeSellForm
     },
     data(){
         return{
-            Buy: false,
-            name: null
+            myCoins: null,
+            myCoins_cash: 0,
+            Buy: true,
+            name: '.'
         }
     },
+    computed: {
+        ...mapState(["tokens"])
+    }
+    ,
     methods:{
+        wallets(){
+            let wallet = {
+                tokens: this.tokens
+            }
+            axios
+                .post("http://3.36.109.182/userWallet", wallet)
+                .then((res) => {
+                    this.myCoins = res
+                    this.myCoins_cash = this.myCoins.data.cash 
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        },
         isBuy(){
             this.Buy = true
         },
         isSell(){                   
             this.Buy = false
         }
-    }   
+    },
 }
 </script>
 

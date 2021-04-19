@@ -15,18 +15,79 @@
             </div>
         </div>
         <div class="Coins">
-            <p class="not-hold">보유중인 코인이 없습니다.</p>
-            <HoldCoin></HoldCoin>
+            <p v-if="isCoinsHear">
+            <HoldCoin
+            v-for="(myWallet, index) in myWallets" :key="index"
+            :coinname="myWallet.name"
+            :evaluation_fee="myWallet.evaluation_fee"
+            :quantity="myWallet.quantity"
+            :fluctate_rate="myWallet.fluctate_rate"
+            :original_total="myWallet.original_total"
+            :average_price="myWallet.average_price" 
+            ></HoldCoin>
+            </p>
+            <p class="not-hold" v-else>보유중인 코인이 없습니다.</p>
         </div>
     </div>
 </template>
 
+
+
 <script>
 import HoldCoin from './HoldCoin'
+import { getWallet } from "../../modules/wallet"
+import { mapState } from 'vuex'
 
 export default {
 components:{
     HoldCoin
+},
+data(){
+    return{
+        myWallets: null,
+        isCoinsHear: false
+    }
+},
+computed: {
+    ...mapState(["tokens"])
+},
+methods: {
+    playAlert(){
+        getWallet(this.tokens, (wallet, err) => {
+            this.myWallets = wallet.coins
+            
+            if(err){
+                console.log(err)
+            }
+
+            if(this.myWallets.length === 0){
+                this.isCoinsHear = false
+            }    
+            else{
+                this.isCoinsHear = true
+            }
+        })
+        setInterval(() => {  // setInterval은 setInterval(() => {} 형식을 무조건!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 사용!
+                getWallet(this.tokens , (wallet, err) => {
+                    this.myWallets = wallet.coins
+                    
+                    if (err){
+                        console.log(err)
+                    }
+
+                    if(this.myWallets.length === 0){
+                        this.isCoinsHear = false
+                    }    
+                    else{
+                    this.isCoinsHear = true
+                    } 
+            })
+            }, 1000)
+    }
+},
+created(){
+    this.playAlert()
+    
 }
 }
 </script>

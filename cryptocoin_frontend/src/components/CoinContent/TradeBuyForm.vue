@@ -5,7 +5,7 @@
                 <p>보유 원화</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="0" v-model="total_coin"></p>
+                <p><input type="text" placeholder="0" v-model="total_coins"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -46,6 +46,7 @@
 <script>
 import { eventBus } from "../../main"
 import axios from "axios"
+import { mapState } from 'vuex'
 
 // :style = "{backgroundColor: type === 'ASK' ? '#f14f4f' : '#7878e3'}"
 
@@ -53,28 +54,33 @@ export default {
     created(){
         eventBus.$on('bids',(bid_price) =>{
             this.bid_price = bid_price
-        })
+        }) 
     },
     data(){
         return{
-            total_coin: 100000000,
+            coin_name: '',
+            total_coins: this.myCoins,
             bid_price: 0,
             bid_quantity: 0,
             total_bids: 0
         }
     },
+    computed: {
+        ...mapState(["tokens"])
+    },
     methods: {
         success_bids(){
             let bids_information = {
-                coinname: this.coinname,
+                coinname: this.coin_name,
                 bid_price: this.bid_price,
                 bid_quantity: this.bid_quantity,
-                user_id: 9
+                user_id: this.tokens
             }
             axios
                 .post("http://3.36.109.182/market/buyorder", bids_information)
                 .then((res) => {
                     console.log(res)
+                    this.total_coins = res.data.balance
                     this.clearForm() 
                 })
                 .catch((err) => {
@@ -82,16 +88,22 @@ export default {
                 })
         },
         clearForm(){
-            (this.coinname = null),
             (this.bid_price = 0),
             (this.bid_quantity = 0)
+        },
+        holdCoins(){
+            eventBus.$emit('holdcoin',
+            
+            )
         }
     },
     updated(){
-        this.total_bids = this.bid_quantity * this.bid_price
+        this.total_bids = this.bid_quantity * this.bid_price,
+        this.coin_name = this.coinname
     },
     props: [
-        "coinname"
+        "coinname",
+        "myCoins"
     ]
 }
 </script>

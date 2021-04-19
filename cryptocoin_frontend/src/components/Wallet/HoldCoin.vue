@@ -1,23 +1,22 @@
 <template>
     <div class="Hold_Coin Coin"> 
         <div class="Coin_Name">
-            <p>name</p>
-            <span>Coin_Name</span>
+            <p>{{ coinname }}</p>
         </div>
         <div class="Coin_Price">
             <p>
-                <span>Coin_Name</span>
+                <span>{{ evaluation_fee }}</span>
             </p>
         </div>
         <div class="Coin_Change_Price">
             <p>
-            Coin_Change_Price
+            {{ fluctate_rate }}
             </p>
         </div>
         <div class="Coin_Average">
             <p>
                 <span>
-                    Coin_Average
+                    {{ average_price }}
                 </span>
             </p>
         </div>
@@ -26,7 +25,14 @@
 
 <script>
 export default {
-
+    props: [
+    "coinname",
+    "evaluation_fee",
+    "quantity",
+    "fluctate_rate",
+    "original_total",
+    "average_price"
+    ],
 }
 </script>
 

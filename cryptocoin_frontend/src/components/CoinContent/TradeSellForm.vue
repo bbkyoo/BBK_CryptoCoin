@@ -5,7 +5,7 @@
                 <p>보유 원화</p>
             </div>
             <div class="Form_Des">
-                <p><input type="text" placeholder="0" v-model="total_coin"></p>
+                <p><input type="text" placeholder="0" v-model="total_coins"></p>
             </div>
         </div>
         <div class="Form_List">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="Form_Submit">
-            <button type="submit" >
+            <button type="submit" @click="success_asks()">
                 매도
             </button>  
         </div>
@@ -44,8 +44,9 @@
 </template>
 
 <script>
-
 import { eventBus } from "../../main"
+import axios from "axios"
+import { mapState } from 'vuex'
 
 // :style = "{backgroundColor: type === 'ASK' ? '#f14f4f' : '#7878e3'}"
 
@@ -57,15 +58,48 @@ export default {
     },
     data(){
         return{
-            total_coin: 100000000,
+            coin_name: '',
+            total_coins: this.myCoins,
             ask_price: 0,
             ask_quantity: 0,
             total_asks: 0
         }
     },
+    computed: {
+        ...mapState(["tokens"])
+    },
+    methods: {
+        success_asks(){
+            let asks_information = {
+                coinname: this.coin_name,
+                ask_price: this.ask_price,
+                ask_quantity: this.ask_quantity,
+                user_id: this.tokens
+            }
+            axios
+                .post("http://3.36.109.182/market/sellorder", asks_information)
+                .then((res) => {
+                    console.log(res)
+                    this.total_coins = res.data.balance
+                    this.clearForm() 
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        },
+        clearForm(){
+            (this.ask_price = 0),
+            (this.ask_quantity = 0)
+        }
+    },
     updated(){
         this.total_asks = this.ask_price * this.ask_quantity
-    }
+        this.coin_name = this.coinname
+    },
+    props: [
+        "coinname",
+        "myCoins"
+    ]
 }
 </script>
 
