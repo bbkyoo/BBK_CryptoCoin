@@ -38,7 +38,7 @@ export default new Vuex.Store({
     // 로그인 시도
     login({commit, dispatch}, loginObj){
       axios
-        .post('http://3.36.109.182/login', loginObj) // 파라미터(loginObj)
+        .post('http://3.34.123.12/login', loginObj) // 파라미터(loginObj)
         .then(res => {
           let token = res.data // 원래는 이렇게 해야함 res.data.token 
           localStorage.setItem("access_token", token)
@@ -62,7 +62,7 @@ export default new Vuex.Store({
         }
       }
       axios
-        .get('http://3.36.109.182/user', config) // 두번째 인자로 config
+        .get('http://3.34.123.12/user', config) // 두번째 인자로 config
         .then(response => {
           let userInfo = { 
             email: response.data.email,

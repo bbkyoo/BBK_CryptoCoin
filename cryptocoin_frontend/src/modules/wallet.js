@@ -1,6 +1,6 @@
 const request_url = require('request');
 
-let Tickerurl = 'http://3.36.109.182/userWallet';
+let Tickerurl = 'http://3.34.123.12/userWallet';
 
 async function getWallet(token ,callback){
         const options = {

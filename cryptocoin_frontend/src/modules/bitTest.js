@@ -1,6 +1,6 @@
 const request_url = require('request');
 
-let Tickerurl = 'http://3.36.109.182/coinData';
+let Tickerurl = 'http://3.34.123.12/coinData';
 
 async function getCoins(callback){
         request_url(Tickerurl, async function(error, response, body) {

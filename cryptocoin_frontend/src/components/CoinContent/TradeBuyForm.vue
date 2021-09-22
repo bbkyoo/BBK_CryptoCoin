@@ -34,7 +34,7 @@
         </div>
 
         <div class="Form_Submit">
-            <button type="submit" @click="success_bids()">
+            <button type="submit" @click="success_bids()" :style = "{backgroundColor: type === 'ASK' ? '#f14f4f' : '#7878e3'}">
                 매수
             </button>  
         </div>
@@ -77,7 +77,7 @@ export default {
                 user_id: this.tokens
             }
             axios
-                .post("http://3.36.109.182/market/buyorder", bids_information)
+                .post("http://3.34.123.12/market/buyorder", bids_information)
                 .then((res) => {
                     console.log(res)
                     this.total_coins = res.data.balance

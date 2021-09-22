@@ -46,7 +46,7 @@ export default {
     data(){
         return{
             myCoins: null,
-            myCoins_cash: 0,
+            myCoins_cash: 100000000,
             Buy: true,
             name: '.'
         }
@@ -61,7 +61,7 @@ export default {
                 tokens: this.tokens
             }
             axios
-                .post("http://3.36.109.182/userWallet", wallet)
+                .post("http://3.34.123.12/userWallet", wallet)
                 .then((res) => {
                     this.myCoins = res
                     this.myCoins_cash = this.myCoins.data.cash 

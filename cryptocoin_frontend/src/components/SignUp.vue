@@ -33,7 +33,7 @@ export default {
         name: this.name,
       };
       axios
-        .post("http://3.36.109.182/signup", userObj)
+        .post("http://3.34.123.12/signup", userObj)
         .then((res) => {
           console.log(res);
           this.clearForm();
