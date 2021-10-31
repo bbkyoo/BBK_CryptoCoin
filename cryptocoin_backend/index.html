@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Imagetoolbar" content="No" />
+	<script src="/socket.io/socket.io.js"></script>
+	<title></title>
+	<style>
+	label{color:blue}
+	</style>
+</head>
+<body>
+<div id="success" style="display:none">
+<pre>
+{
+	<label>"status"</label> : "<span id="status"></span>",
+	<label>"data"</label> : {
+		<label>"created"</label> : "<span id="created"></span>",
+		<label>"account_id"</label> : "<span id="account_id"></span>",
+		<label>"trade_fee"</label> : "<span id="trade_fee"></span>",
+		<label>"balance"</label> : "<span id="balance"></span>"
+	}
+}
+</pre>
+</div>
+<div id="fail" style="display:none">
+<pre>
+{
+	<label>"status"</label> : "<span id="status2"></span>",
+	<label>"message"</label> : "<span id="message"></span>"
+}
+</pre>
+</div>
+
+<script type="text/javascript">
+var socket = io.connect('http://localhost');
+
+// API RETURN DATA
+socket.on('XCoinAPIResponse', function(rsData){
+	console.log(rsData);
+	if(rsData.status == '0000') {
+		document.getElementById('status').innerHTML = rsData.status;
+		document.getElementById('created').innerHTML = rsData.data.created;
+		document.getElementById('account_id').innerHTML = rsData.data.account_id;
+		document.getElementById('trade_fee').innerHTML = rsData.data.trade_fee;
+		document.getElementById('balance').innerHTML = rsData.data.balance;
+		document.getElementById('success').style.display = '';
+		document.getElementById('fail').style.display = 'none';
+	}
+	else {
+		document.getElementById('status2').innerHTML = rsData.status;
+		document.getElementById('message').innerHTML = rsData.message;
+		document.getElementById('fail').style.display = '';
+		document.getElementById('success').style.display = 'none';
+	}
+});
+</script>
+</body>
+</html>
