@@ -77,8 +77,8 @@ export default {
                     } 
             })
             }, 1000)
-        },
-    },
+        }
+    },    
     created() {     
         this.playAlert()
     }

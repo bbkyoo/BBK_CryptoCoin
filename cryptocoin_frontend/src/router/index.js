@@ -42,6 +42,7 @@ export default new VueRouter({
     {
       path: '/mainpage',
       name: 'mainpage',
+      meta: { scrollToTop: true },
       beforeEnter: onlyAuthUser,
       component: () => import(/* webpackChunkName: "mypage" */ '../views/Mainpage.vue')
     },
